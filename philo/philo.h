@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 22:31:02 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 22:40:51 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ typedef struct s_philo
 	int		eat_n;
 }	t_philo;
 
-// arg_check.c
+// ph_arg_check.c
 int	arg_check(int argc, char *argv[]);
 int	arg_check_int(int argc, char *argv[]);
 int	arg_perrmsg(void);
+
+// ph_utils.c
 
 #endif
