@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 23:05:57 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 23:09:28 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	arg_perrmsg(char *errmsg)
 	printf("Your program must take the following arguments:\n");
 	printf(GRAY_10 "number_of_philosophers time_to_die time_to_eat time_to_sleep\n");
 	printf("[number_of_times_each_philosopher_must_eat]\n" RESET);
-	printf("All the numbers should be positive int\n");
+	printf("All the numbers should be positive integers.\n");
 	return (1);
 }
 
@@ -59,6 +59,8 @@ int	arg_check_int(int argc, char *argv[])
 				return (1);
 			str++;
 		}
+		if (ph_simple_itoa(argv[i]) == -1)
+			return (1);
 	}
 	return (0);
 }
