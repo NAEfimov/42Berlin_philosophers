@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 22:40:51 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 22:57:35 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/time.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 typedef struct s_philo
 {
@@ -35,8 +36,9 @@ typedef struct s_philo
 // ph_arg_check.c
 int	arg_check(int argc, char *argv[]);
 int	arg_check_int(int argc, char *argv[]);
-int	arg_perrmsg(void);
+int	arg_perrmsg(char *errmsg);
 
 // ph_utils.c
+int	ph_simple_itoa(char *str);
 
 #endif

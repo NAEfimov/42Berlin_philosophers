@@ -6,30 +6,39 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 22:39:30 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 23:05:57 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+#define RED "\033[31m"
+#define WHITE "\033[37m"
+#define GRAY_10 "\033[38;5;232m" // 10% gray
+#define GRAY_20 "\033[38;5;233m" // 20% gray
+#define RESET "\033[0m"
+
 // Check arguments
 // Return 0 if OK, 1 if not
 int	arg_check(int argc, char *argv[])
 {
-	if (argc < 5 || argc > 6 || arg_check_int(argc, argv))
-		return (arg_perrmsg());
-	if (argv[1])
+	if (argc < 5 || argc > 6)
+		return (arg_perrmsg("Wrong number of arguments!"));
+	if (arg_check_int(argc, argv))
+		return (arg_perrmsg("One or more arguments is not positive int!"));
+	
 	return (0);
 }
 
 // Print error message and hint for right args
 // Return 1;
-int	arg_perrmsg(void)
+int	arg_perrmsg(char *errmsg)
 {
-	printf("Wrong arguments!\n");
+	printf(RED "%s\n" RESET, errmsg);
 	printf("Your program must take the following arguments:\n");
-	printf("number_of_philosophers time_to_die time_to_eat time_to_sleep\n");
-	printf("[number_of_times_each_philosopher_must_eat]\n");
+	printf(GRAY_10 "number_of_philosophers time_to_die time_to_eat time_to_sleep\n");
+	printf("[number_of_times_each_philosopher_must_eat]\n" RESET);
+	printf("All the numbers should be positive int\n");
 	return (1);
 }
 
