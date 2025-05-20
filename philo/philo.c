@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:26 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 22:37:03 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 23:16:51 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char *argv[])
 {
 	if (arg_check(argc, argv))
 		return (1);
-	// Create phlilosophers
+	// Create philosophers
 	// Create mutexes
 	// Create threads
 	// Start threads

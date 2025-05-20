@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 23:09:28 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 23:13:34 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	arg_perrmsg(char *errmsg)
 {
 	printf(RED "%s\n" RESET, errmsg);
 	printf("Your program must take the following arguments:\n");
-	printf(GRAY_10 "number_of_philosophers time_to_die time_to_eat time_to_sleep\n");
+	printf(GRAY_10 "number_of_philosophers time_to_die ");
+	printf("time_to_eat time_to_sleep\n");
 	printf("[number_of_times_each_philosopher_must_eat]\n" RESET);
 	printf("All the numbers should be positive integers.\n");
 	return (1);
