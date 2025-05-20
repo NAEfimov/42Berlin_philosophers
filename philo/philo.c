@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:26 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 19:41:17 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 22:30:42 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@ int	main(int argc, char *argv[])
 {
 	if (arg_check(argc, argv))
 		return (1);
-	
 	return (0);
 }

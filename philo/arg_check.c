@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 22:22:23 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 22:29:26 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Check arguments
 // Return 0 if OK, 1 if not
-int arg_check(int argc, char *argv[])
+int	arg_check(int argc, char *argv[])
 {
 	if (argc < 5 || argc > 6 || arg_check_int(argc, argv))
 		return (arg_perrmsg());
