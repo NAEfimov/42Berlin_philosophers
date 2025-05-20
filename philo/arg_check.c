@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 19:41:22 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/20 22:22:23 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int arg_check(int argc, char *argv[])
 	return (0);
 }
 
+// Print error message and hint for right args
+// Return 1;
 int	arg_perrmsg(void)
 {
 	printf("Wrong arguments!\n");
@@ -30,6 +32,8 @@ int	arg_perrmsg(void)
 	return (1);
 }
 
+// Check args for only digits.
+// Return 0 if OK, 1 if no.
 int	arg_check_int(int argc, char *argv[])
 {
 	int		i;
