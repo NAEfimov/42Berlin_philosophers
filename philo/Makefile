@@ -21,8 +21,8 @@ SRCS		:=			\
 	philo.c				\
 	arg_check.c		
 
-# OBJS_DIR	:= 
-OBJS		:= $(SRCS:%.c=%.o)
+BUILD_DIR	:= .build
+OBJS		:= $(SRCS:%.c=$(BUILD_DIR)/%.o)
 DEPS		:= $(OBJS:.o=.d)
 
 CC			:= cc
@@ -36,8 +36,10 @@ IFLAGS		:= $(addprefix -I,$(INCS))
 # RM		force remove
 # MAKEFLAGS	make flags
 
-RM			= rm -f
+RM_FILES	= rm -f
+RM_DIR		= rm -fr
 MAKEFLAGS	+= --no-print-directory
+DIR_DUP     = mkdir -p $(@D)
 
 #------------------------------------------------#
 #   RECIPES                                      #
@@ -59,12 +61,18 @@ $(NAME): $(OBJS) $(LIBS_TARGET)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(IFLAGS) -c -o $@ $< $(LDLIBS)
 	$(info CREATED $@)
 
+$(BUILD_DIR)/%.o: %.c
+	$(DIR_DUP)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+	$(info CREATED $@)
+
 -include $(DEPS)
 
 clean:
-	$(RM) $(OBJS) $(DEPS)
+	$(RM_FILES) $(OBJS) $(DEPS)
+	$(RM_DIR) $(BUILD_DIR)
 fclean: clean
-	$(RM) $(NAME)
+	$(RM_FILES) $(NAME)
 
 re:
 	$(MAKE) fclean
