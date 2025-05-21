@@ -20,7 +20,8 @@ INCS        := .
 SRCS		:=			\
 	philo.c				\
 	ph_arg_check.c		\
-	ph_utils.c
+	ph_utils.c			\
+	ph_mutex.c
 
 BUILD_DIR	:= .build
 OBJS		:= $(SRCS:%.c=$(BUILD_DIR)/%.o)
