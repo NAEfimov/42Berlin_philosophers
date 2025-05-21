@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 16:27:57 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/21 17:18:14 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,34 @@
 # include <sys/time.h>
 # include <limits.h>
 
+# define ARGS_NUM	5
+
 typedef struct s_philo
 {
 	int				n;
 	int				int_n;
 	int				t_num;
 	int				fork[2];
-	long			t_eat;
-	long			t_sleep;
-	long			t_die;
-	long			lst_eat;
-	int				is_die;
+	int				t_eat;
+	int				t_sleep;
+	int				t_die;
+	int				lst_eat;
 	int				eat_n;
+	int				is_die;
 	pthread_mutex_t	mtx[2];
 }	t_philo;
 
 // ph_arg_check.c
-int	ph_arg_check(int argc, char *argv[]);
-int	ph_arg_check_int(int argc, char *argv[]);
-int	ph_arg_perrmsg(char *errmsg);
+int		ph_args_check(int argc, char *argv[], int *args);
+int		ph_args_are_int(int argc, char *argv[], int *args);
+int		ph_arg_perrmsg(char *errmsg);
+void	ph_args_print(int *args);
 
 // ph_utils.c
 int	ph_simple_itoa(char *str);
+
+// ph_mutex.c
+int	ph_mtxs_init(pthread_mutex_t **mtxs, int *args);
+int	ph_mtxs_destroy(pthread_mutex_t **mtxs, int *args);
 
 #endif

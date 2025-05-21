@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 16:27:57 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/21 17:18:14 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,16 @@
 #define RED "\033[31m"
 #define WHITE "\033[37m"
 #define GRAY_10 "\033[38;5;232m" // 10% gray
-#define GRAY_20 "\033[38;5;233m" // 20% gray
 #define RESET "\033[0m"
 
 // Check arguments
 // Return 0 if OK, 1 if not
-int	ph_arg_check(int argc, char *argv[])
+int	ph_args_check(int argc, char *argv[], int *args)
 {
 	if (argc < 5 || argc > 6)
 		return (ph_arg_perrmsg("Wrong number of arguments!"));
-	if (ph_arg_check_int(argc, argv))
+	if (ph_args_are_int(argc, argv, args))
 		return (ph_arg_perrmsg("One or more arguments is not positive int!"));
-	
 	return (0);
 }
 
@@ -45,7 +43,7 @@ int	ph_arg_perrmsg(char *errmsg)
 
 // Check args for only digits.
 // Return 0 if OK, 1 if no.
-int	ph_arg_check_int(int argc, char *argv[])
+int	ph_args_are_int(int argc, char *argv[], int *args)
 {
 	int		i;
 	char	*str;
@@ -60,8 +58,23 @@ int	ph_arg_check_int(int argc, char *argv[])
 				return (1);
 			str++;
 		}
-		if (ph_simple_itoa(argv[i]) == -1)
+		args[i - 1] = ph_simple_itoa(argv[i]);
+		if (args[i - 1] == -1)
 			return (1);
+		if (argc == 5)
+			args[4] = -1;
 	}
 	return (0);
+}
+
+// Print all arguments
+void	ph_args_print(int *args)
+{
+	int	i;
+
+	printf("\nArgs: ");
+	i = -1;
+	while (++i < ARGS_NUM)
+		printf("%d ", args[i]);
+	printf("\n\n");
 }
