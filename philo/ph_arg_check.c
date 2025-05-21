@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 17:18:14 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/21 20:22:37 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ph_args_print(int *args)
 
 	printf("\nArgs: ");
 	i = -1;
-	while (++i < ARGS_NUM)
+	while (++i < ARGS_COUNT)
 		printf("%d ", args[i]);
 	printf("\n\n");
 }
