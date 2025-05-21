@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 22:40:07 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 22:50:59 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/21 20:43:32 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,14 @@ int	ph_simple_itoa(char *str)
 	if (num > INT_MAX)
 		return (-1);
 	return ((int)num);
+}
+
+void	ph_free(pthread_t *threads, t_philo *philo, pthread_mutex_t *mtxs)
+{
+	if (philo)
+		free(philo);
+	if (mtxs)
+		free(mtxs);
+	if (threads)
+		free(threads);
 }
