@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/20 23:13:34 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/21 16:27:57 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,19 @@
 
 // Check arguments
 // Return 0 if OK, 1 if not
-int	arg_check(int argc, char *argv[])
+int	ph_arg_check(int argc, char *argv[])
 {
 	if (argc < 5 || argc > 6)
-		return (arg_perrmsg("Wrong number of arguments!"));
-	if (arg_check_int(argc, argv))
-		return (arg_perrmsg("One or more arguments is not positive int!"));
+		return (ph_arg_perrmsg("Wrong number of arguments!"));
+	if (ph_arg_check_int(argc, argv))
+		return (ph_arg_perrmsg("One or more arguments is not positive int!"));
 	
 	return (0);
 }
 
 // Print error message and hint for right args
 // Return 1;
-int	arg_perrmsg(char *errmsg)
+int	ph_arg_perrmsg(char *errmsg)
 {
 	printf(RED "%s\n" RESET, errmsg);
 	printf("Your program must take the following arguments:\n");
@@ -45,7 +45,7 @@ int	arg_perrmsg(char *errmsg)
 
 // Check args for only digits.
 // Return 0 if OK, 1 if no.
-int	arg_check_int(int argc, char *argv[])
+int	ph_arg_check_int(int argc, char *argv[])
 {
 	int		i;
 	char	*str;
