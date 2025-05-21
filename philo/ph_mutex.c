@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:32:01 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 19:30:14 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/21 20:47:44 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int	ph_mtxs_destroy(pthread_mutex_t **mtxs, int *args)
 			return (1);
 	}
 	free(mtx);
+	*mtxs = NULL;
 	return (0);
 }
