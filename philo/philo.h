@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 19:55:52 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/21 20:47:23 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <sys/time.h>
 # include <limits.h>
 
-# define ARGS_NUM		5
+# define ARGS_COUNT		5
 
 # define ARGS_PH_NUM	0
 # define ARGS_T_DIE		1
@@ -53,6 +53,7 @@ void	ph_args_print(int *args);
 
 // ph_utils.c
 int		ph_simple_itoa(char *str);
+void	ph_free(pthread_t *threads, t_philo *philo, pthread_mutex_t *mtxs);
 
 // ph_mutex.c
 int		ph_mtxs_init(pthread_mutex_t **mtxs, int *args);
@@ -65,4 +66,9 @@ void	ph_philo_print(t_philo *philo);
 void	ph_philo_print_all(t_philo *philo);
 void	ph_philo_print_status(t_philo *philo);
 
+// ph_thread.c
+int		ph_threads_allocate(pthread_t **threads, int num);
+int		ph_threads_create(pthread_t *threads, t_philo *philo, int num);
+
+void	*simulation(void *philo);
 #endif

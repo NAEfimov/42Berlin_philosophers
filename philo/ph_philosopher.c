@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:28:45 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 19:57:09 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/21 20:06:39 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	ph_philo_create(t_philo **philo, pthread_mutex_t *mtxs, int *args)
 
 void	ph_philo_init(t_philo *philo, pthread_mutex_t *mtxs, int *args, int i)
 {
-	// philo = (t_philo *)malloc(sizeof(t_philo));
 	philo->n = i;
 	philo->status = i;
 	philo->ph_num = args[ARGS_PH_NUM];
