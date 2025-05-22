@@ -23,7 +23,9 @@ SRCS		:=			\
 	ph_utils.c			\
 	ph_mutex.c			\
 	ph_thread.c			\
-	ph_philosopher.c
+	ph_philosopher.c	\
+	ph_time.c			\
+	ph_simulation.c
 
 BUILD_DIR	:= .build
 OBJS		:= $(SRCS:%.c=$(BUILD_DIR)/%.o)
