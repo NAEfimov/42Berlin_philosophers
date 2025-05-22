@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:28:45 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 20:06:39 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/22 08:58:47 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ void	ph_philo_init(t_philo *philo, pthread_mutex_t *mtxs, int *args, int i)
 	philo->t_start = 0;
 	philo->t_leat = 0;
 	philo->is_die = 0;
-	philo->frk[0] = mtxs[philo->ph_num - 1 -
+	philo->frk[0] = &mtxs[philo->ph_num - 1 -
 		((philo->ph_num - i) % philo->ph_num)];
-	philo->frk[1] = mtxs[i];
+	philo->frk[1] = &mtxs[i];
 }
 
 void	ph_philo_print(t_philo *philo)
@@ -59,7 +59,7 @@ void	ph_philo_print(t_philo *philo)
 	printf("t_strt:\t%ld\n", philo->t_start);
 	printf("t_leat:\t%ld\n"RESET, philo->t_leat);
 	printf("is_die:\t%d\n", philo->is_die);
-
+	printf("forks:\t\t%p | %p\n", philo->frk[0] ,philo->frk[1]);
 }
 
 void	ph_philo_print_all(t_philo *philo)
@@ -74,8 +74,7 @@ void	ph_philo_print_all(t_philo *philo)
 	printf("t_start:\t%ld\n", philo->t_start);
 	printf("t_leat:\t\t%ld\n", philo->t_leat);
 	printf("is_die:\t\t%d\n", philo->is_die);
-	printf("forks:\t\t%d | %d\n", philo->ph_num - 1 -
-		((philo->ph_num - philo->n) % philo->ph_num) ,philo->n);
+	printf("forks:\t\t%p | %p\n", philo->frk[0] ,philo->frk[1]);
 }
 void	ph_philo_print_status(t_philo *philo)
 {

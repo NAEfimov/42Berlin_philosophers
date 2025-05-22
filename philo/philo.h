@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 20:47:23 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/22 08:56:49 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define ARGS_N_EATS	4
 
 # define MS_TO_MKS		1000
+# define S_TO_MKS		1000000
 
 typedef struct s_philo
 {
@@ -42,7 +43,7 @@ typedef struct s_philo
 	long			t_start;
 	long			t_leat;
 	int				is_die;
-	pthread_mutex_t	frk[2];
+	pthread_mutex_t	*frk[2];
 }	t_philo;
 
 // ph_arg_check.c
