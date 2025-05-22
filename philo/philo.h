@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/22 08:56:49 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/22 09:08:32 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int		ph_mtxs_destroy(pthread_mutex_t **mtxs, int *args);
 
 // ph_philosopher.c
 int		ph_philo_create(t_philo **philo, pthread_mutex_t *mtxs, int *args);
-void	ph_philo_init(t_philo *philo, pthread_mutex_t *mtxs, int *args, int order_num);
+void	ph_philo_init(t_philo *philo, pthread_mutex_t *mtxs,
+			int *args, int order_num);
 void	ph_philo_print(t_philo *philo);
 void	ph_philo_print_all(t_philo *philo);
 void	ph_philo_print_status(t_philo *philo);
@@ -71,5 +72,5 @@ void	ph_philo_print_status(t_philo *philo);
 int		ph_threads_allocate(pthread_t **threads, int num);
 int		ph_threads_create(pthread_t *threads, t_philo *philo, int num);
 
-void	*simulation(void *philo);
+void	*ph_simulation(void *philo);
 #endif
