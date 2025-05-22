@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:07:09 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/22 18:51:24 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/22 19:52:33 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,34 +109,34 @@ void ph_proc_status(t_philo *ph)
 		}
 		else // Action 3
 		{
-			if (ph->t_sleep >= ph->t_eat)
+			if (ph->t_sleep > ph->t_eat)
 				{
 					ph->status--;
 					return ;
 				}
 
-			if (ph_check_wait_time(ph, ph->t_eat - ph->t_sleep))
+			if (ph_check_wait_time(ph, ph->t_eat))
 			{
 				usleep(MS_TO_MKS * (ph->t_die - ph_get_msec() + ph->t_leat));
 				return ;
 			}
-			usleep(MS_TO_MKS * (ph->t_eat - ph->t_sleep));
+			usleep(MS_TO_MKS * (ph->t_eat));
 			ph->status--;
 		}
 	}
 	else // Action 2: wait t_eat and eat
 	{
-		if (ph->t_sleep >= ph->t_eat)
+		if (ph->t_sleep > ph->t_eat)
 		{
 			ph->status--;
 			return ;
 		}
-		if (ph_check_wait_time(ph, ph->t_eat))
+		if (ph_check_wait_time(ph, ph->t_eat - ph->t_sleep))
 		{
 			usleep(MS_TO_MKS * (ph->t_die - ph_get_msec() + ph->t_leat));
 			return ;
 		}
-		usleep(MS_TO_MKS * (ph->t_eat));
+		usleep(MS_TO_MKS * (ph->t_eat - ph->t_sleep));
 			
 		ph->status--;
 	}
