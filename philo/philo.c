@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:26 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/22 10:51:47 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/22 15:07:22 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	main(int argc, char *argv[])
 		// clean and destroy mtxs
 		return (1);
 	}
-	ph_philo_print_status(philo);
+	// ph_philo_print_status(philo);
 	// Create threads
 	if (ph_threads_allocate(&threads, args[ARGS_PH_NUM]))
 	{
