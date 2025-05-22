@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:28:45 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/22 08:58:47 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/22 11:18:09 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	ph_philo_init(t_philo *philo, pthread_mutex_t *mtxs, int *args, int i)
 	philo->n = i;
 	philo->status = i;
 	philo->ph_num = args[ARGS_PH_NUM];
-	philo->t_die = (long)(args[ARGS_T_DIE] * MS_TO_MKS);
-	philo->t_eat = (long)(args[ARGS_T_EAT] * MS_TO_MKS);
-	philo->t_sleep = (long)(args[ARGS_T_SLEEP] * MS_TO_MKS);
+	philo->t_die = (long)(args[ARGS_T_DIE]);
+	philo->t_eat = (long)(args[ARGS_T_EAT]);
+	philo->t_sleep = (long)(args[ARGS_T_SLEEP]);
 	philo->n_eats = args[ARGS_N_EATS];
 	philo->t_start = 0;
 	philo->t_leat = 0;

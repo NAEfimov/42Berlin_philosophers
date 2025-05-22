@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/22 11:04:26 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/22 11:19:11 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	*ph_simulation(void *philo);
 
 // ph_time.c
 long	ph_get_time(void);
+long	ph_get_msec(void);
 
 #endif
