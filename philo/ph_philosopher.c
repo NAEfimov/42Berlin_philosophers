@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:28:45 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 12:21:56 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 18:39:31 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 #define RED "\033[31m"
 #define WHITE "\033[37m"
-#define GRAY_10 "\033[38;5;232m" // 10% gray
+#define GRAY_10 "\033[38;5;232m"
 #define RESET "\033[0m"
 
-int	ph_philo_create(t_philo **philo, pthread_mutex_t *mtxs, int *args)
+int	ph_philo_create(t_philo **philo, t_mtxs *mtxs, int *args)
 {
 	int		i;
 	t_philo	*ph;
@@ -29,10 +29,11 @@ int	ph_philo_create(t_philo **philo, pthread_mutex_t *mtxs, int *args)
 	while (++i < args[ARGS_PH_NUM])
 		ph_philo_init(&ph[i], mtxs, args, i);
 	*philo = ph;
+
 	return (0);
 }
 
-void	ph_philo_init(t_philo *philo, pthread_mutex_t *mtxs, int *args, int i)
+void	ph_philo_init(t_philo *philo, t_mtxs *mtxs, int *args, int i)
 {
 	philo->n = i;
 	philo->status = i;
@@ -44,9 +45,11 @@ void	ph_philo_init(t_philo *philo, pthread_mutex_t *mtxs, int *args, int i)
 	philo->t_start = 0;
 	philo->t_leat = 0;
 	philo->is_die = 0;
-	philo->frk[0] = &mtxs[philo->ph_num - 1
+	philo->frk_mtx[0] = &mtxs->frk_mtx[philo->ph_num - 1
 		- ((philo->ph_num - i) % philo->ph_num)];
-	philo->frk[1] = &mtxs[i];
+	philo->frk_mtx[1] = &mtxs->frk_mtx[i];
+	philo->is_die_mtx = &mtxs->is_die_mtx[i];
+	philo->t_leat_mtx = &mtxs->t_leat_mtx[i];
 }
 
 void	ph_philo_print(t_philo *philo)
@@ -57,7 +60,7 @@ void	ph_philo_print(t_philo *philo)
 	printf("t_strt:\t%ld\n", philo->t_start);
 	printf("t_leat:\t%ld\n"RESET, philo->t_leat);
 	printf("is_die:\t%d\n", philo->is_die);
-	printf("forks:\t\t%p | %p\n", philo->frk[0], philo->frk[1]);
+	printf("forks:\t\t%p | %p\n", philo->frk_mtx[0], philo->frk_mtx[1]);
 }
 
 void	ph_philo_print_all(t_philo *philo)
@@ -72,7 +75,7 @@ void	ph_philo_print_all(t_philo *philo)
 	printf("t_start:\t%ld\n", philo->t_start);
 	printf("t_leat:\t\t%ld\n", philo->t_leat);
 	printf("is_die:\t\t%d\n", philo->is_die);
-	printf("forks:\t\t%p | %p\n", philo->frk[0], philo->frk[1]);
+	printf("forks:\t\t%p | %p\n", philo->frk_mtx[0], philo->frk_mtx[1]);
 }
 
 void	ph_philo_print_status(t_philo *philo)

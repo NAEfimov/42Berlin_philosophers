@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 22:40:07 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 12:15:33 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 17:57:57 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,16 @@ int	ph_simple_itoa(char *str)
 	return ((int)num);
 }
 
-void	ph_free(pthread_t *threads, t_philo *philo, pthread_mutex_t *mtxs)
+void	ph_free(pthread_t *threads, t_philo *philo, t_mtxs *mtxs)
 {
 	if (philo)
 		free(philo);
 	if (mtxs)
-		free(mtxs);
+	{
+		free(mtxs->frk_mtx);
+		free(mtxs->is_die_mtx);
+		free(mtxs->t_leat_mtx);
+	}
 	if (threads)
 		free(threads);
 }

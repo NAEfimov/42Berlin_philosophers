@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 12:15:22 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 19:53:30 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define MS_TO_MKS		1000
 # define S_TO_MKS		1000000
 
+# define MN_SLEEP		500
+
 typedef struct s_philo
 {
 	int				n;
@@ -43,8 +45,18 @@ typedef struct s_philo
 	long			t_start;
 	long			t_leat;
 	int				is_die;
-	pthread_mutex_t	*frk[2];
+	pthread_mutex_t	*frk_mtx[2];
+	pthread_mutex_t	*is_die_mtx;
+	pthread_mutex_t	*t_leat_mtx;
 }	t_philo;
+
+typedef struct s_mtxs
+{
+	int				n;
+	pthread_mutex_t	*frk_mtx;
+	pthread_mutex_t	*is_die_mtx;
+	pthread_mutex_t	*t_leat_mtx;
+}	t_mtxs;
 
 // ph_arg_check.c
 int		ph_args_check(int argc, char *argv[], int *args);
@@ -54,15 +66,15 @@ void	ph_args_print(int *args);
 
 // ph_utils.c
 int		ph_simple_itoa(char *str);
-void	ph_free(pthread_t *threads, t_philo *philo, pthread_mutex_t *mtxs);
+void	ph_free(pthread_t *threads, t_philo *philo, t_mtxs *mtxs);
 
 // ph_mutex.c
-int		ph_mtxs_init(pthread_mutex_t **mtxs, int *args);
-int		ph_mtxs_destroy(pthread_mutex_t **mtxs, int *args);
+int		ph_mtxs_init(t_mtxs *mtxs, int *args);
+int		ph_mtxs_destroy(t_mtxs *mtxs, int *args);
 
 // ph_philosopher.c
-int		ph_philo_create(t_philo **philo, pthread_mutex_t *mtxs, int *args);
-void	ph_philo_init(t_philo *philo, pthread_mutex_t *mtxs,
+int		ph_philo_create(t_philo **philo, t_mtxs *mtxs, int *args);
+void	ph_philo_init(t_philo *philo, t_mtxs *mtxs,
 			int *args, int order_num);
 void	ph_philo_print(t_philo *philo);
 void	ph_philo_print_all(t_philo *philo);
@@ -91,5 +103,9 @@ void	ph_set_start_time(t_philo *ph);
 int		ph_check_die(t_philo *ph);
 int		ph_check_t_sleep(t_philo *ph);
 int		ph_check_wait_time(t_philo *ph, long time);
+
+// ph_monitor.c
+void	*ph_monitor(void *philo);
+int		ph_mon_set_all_die(t_philo	*ph);
 
 #endif

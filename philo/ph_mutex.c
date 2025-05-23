@@ -6,43 +6,60 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:32:01 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 12:19:54 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 18:39:24 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ph_mtxs_init(pthread_mutex_t **mtxs, int *args)
+// Allocate memory for (ph_num + 1) mutexes and init them
+// First ph_num mutexes are forks. The last one is for ph.is_die
+int	ph_mtxs_init(t_mtxs *mtxs, int *args)
 {
 	int				i;
-	pthread_mutex_t	*mtx;
+	// pthread_mutex_t	*mtx;
 
-	mtx = (pthread_mutex_t *)malloc(args[ARGS_PH_NUM]
+	mtxs->n = args[ARGS_PH_NUM];
+	mtxs->frk_mtx = (pthread_mutex_t *)malloc((mtxs->n)
 			* sizeof(pthread_mutex_t));
-	if (mtx == NULL)
+	mtxs->is_die_mtx = (pthread_mutex_t *)malloc((mtxs->n)
+			* sizeof(pthread_mutex_t));
+	mtxs->t_leat_mtx = (pthread_mutex_t *)malloc((mtxs->n)
+			* sizeof(pthread_mutex_t));
+	if (!mtxs->frk_mtx || !mtxs->is_die_mtx || !mtxs->t_leat_mtx)
 		return (1);
 	i = -1;
-	while (++i < args[ARGS_PH_NUM])
-		pthread_mutex_init(&mtx[i], NULL);
-	*mtxs = mtx;
+	while (++i < mtxs->n)
+	{
+		pthread_mutex_init(&(mtxs->frk_mtx[i]), NULL);
+		pthread_mutex_init(&(mtxs->is_die_mtx[i]), NULL);
+		pthread_mutex_init(&(mtxs->t_leat_mtx[i]), NULL);
+	}
+	
+	// *mtxs = mtx;
 	return (0);
 }
 
-int	ph_mtxs_destroy(pthread_mutex_t **mtxs, int *args)
+int	ph_mtxs_destroy(t_mtxs *mtxs, int *args)
 {
 	int				i;
-	pthread_mutex_t	*mtx;
+	// pthread_mutex_t	*mtx;
 
-	if (mtxs == NULL || *mtxs == NULL || args == NULL)
+	if (mtxs == NULL || args == NULL)
 		return (0);
-	mtx = *mtxs;
+	// mtx = *mtxs;
 	i = -1;
-	while (++i < args[0])
+	while (++i < mtxs->n)
 	{
-		if (pthread_mutex_destroy(&mtx[i]))
+		if (pthread_mutex_destroy(&(mtxs->frk_mtx[i]))
+			|| pthread_mutex_destroy(&(mtxs->is_die_mtx[i]))
+			|| pthread_mutex_destroy(&(mtxs->t_leat_mtx[i])))
 			return (1);
 	}
-	free(mtx);
-	*mtxs = NULL;
+	free(mtxs->frk_mtx);
+	free(mtxs->is_die_mtx);
+	free(mtxs->t_leat_mtx);
+	mtxs->n = 0;
+	mtxs = NULL;
 	return (0);
 }
