@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:32:01 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 18:39:24 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 20:02:41 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ int	ph_mtxs_destroy(t_mtxs *mtxs, int *args)
 			|| pthread_mutex_destroy(&(mtxs->t_leat_mtx[i])))
 			return (1);
 	}
-	free(mtxs->frk_mtx);
-	free(mtxs->is_die_mtx);
-	free(mtxs->t_leat_mtx);
+	if (mtxs->frk_mtx)
+		free(mtxs->frk_mtx);
+	if (mtxs->is_die_mtx)
+		free(mtxs->is_die_mtx);
+	if (mtxs->t_leat_mtx)
+		free(mtxs->t_leat_mtx);
 	mtxs->n = 0;
 	mtxs = NULL;
 	return (0);

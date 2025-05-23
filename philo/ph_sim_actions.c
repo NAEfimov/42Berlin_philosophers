@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 11:52:26 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 19:30:37 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 20:16:56 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,15 @@ int	ph_action_wait(t_philo *ph, long time)
 int	ph_action_wait_init(t_philo *ph)
 {
 	printf("%ld %d is thinking\n", ph_get_msec() - ph->t_start, ph->n);
-	// usleep(MS_TO_MKS * (ph->t_eat));
-	// if (ph_check_die(ph))
-	// 	return (1);
-	if (ph->status == ph->ph_num - 1)
-	{
-		usleep(MS_TO_MKS * (ph->t_eat));
-		if (ph_check_die(ph))
-			return (1);
-	}
+	usleep(MS_TO_MKS * (ph->t_eat));
+	if (ph_check_die(ph))
+		return (1);
+	// if (ph->status == ph->ph_num - 1)
+	// {
+	// 	usleep(MS_TO_MKS * (ph->t_eat));
+	// 	if (ph_check_die(ph))
+	// 		return (1);
+	// }
 	ph->status--;
 	return (0);
 }

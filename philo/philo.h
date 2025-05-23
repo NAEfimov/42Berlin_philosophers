@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 19:53:30 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 20:00:30 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ph_args_print(int *args);
 
 // ph_utils.c
 int		ph_simple_itoa(char *str);
-void	ph_free(pthread_t *threads, t_philo *philo, t_mtxs *mtxs);
+void	ph_free(pthread_t *threads, t_philo *philo);
 
 // ph_mutex.c
 int		ph_mtxs_init(t_mtxs *mtxs, int *args);

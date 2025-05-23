@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:42:53 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 19:49:25 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 20:08:20 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	*ph_monitor(void *philo)
 	ph = (t_philo *)philo;
 	while (die == 0)
 	{
+		usleep(MN_SLEEP);
 		i = -1;
 		while (++i < ph->ph_num)
 		{
@@ -54,7 +55,6 @@ void	*ph_monitor(void *philo)
 			pthread_mutex_unlock(ph[i].is_die_mtx);			
 			pthread_mutex_unlock(ph[i].t_leat_mtx);
 		}
-		usleep(MN_SLEEP);
 	}
 	return (NULL);
 }

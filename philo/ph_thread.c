@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:21:08 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 19:52:34 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 19:55:56 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ int	ph_threads_create(pthread_t *threads, t_philo *philo, int num)
 	
 	i = -1;
 	while (++i < num + 1)
-	{
 		pthread_join(threads[i], NULL);
-		// printf("%d stoped\n", i);
-		// if (philo[i].is_die == 1)
-		// 	ph_threads_stop(philo, num);
-	}
 	return (0);
 }
