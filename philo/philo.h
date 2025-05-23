@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 10:04:27 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 12:15:22 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,24 @@ void	ph_philo_print_status(t_philo *philo);
 int		ph_threads_allocate(pthread_t **threads, int num);
 int		ph_threads_create(pthread_t *threads, t_philo *philo, int num);
 
-// ph_simulation.h
-void	*ph_simulation(void *philo);
-
 // ph_time.c
 long	ph_get_msec(void);
+
+// ph_simulation.h
+void	*ph_simulation(void *philo);
+void	ph_proc_status(t_philo *ph);
+void	ph_proc_status_init(t_philo *ph);
+
+// ph_sim_actions.c
+int		ph_action_eat(t_philo *ph);
+int		ph_action_sleep(t_philo *ph);
+int		ph_action_wait(t_philo *ph, long time);
+int		ph_action_wait_init(t_philo *ph);
+
+// ph_sim_checks.c
+void	ph_set_start_time(t_philo *ph);
+int		ph_check_die(t_philo *ph);
+int		ph_check_t_sleep(t_philo *ph);
+int		ph_check_wait_time(t_philo *ph, long time);
 
 #endif

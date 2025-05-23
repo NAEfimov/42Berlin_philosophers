@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:32:01 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 20:47:44 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/23 12:19:54 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 int	ph_mtxs_init(pthread_mutex_t **mtxs, int *args)
 {
-	int	i;
-	pthread_mutex_t *mtx;
-	
-	// Allocate memorry for an array of mutexes
-	mtx = (pthread_mutex_t *)malloc(args[ARGS_PH_NUM] * sizeof(pthread_mutex_t));
+	int				i;
+	pthread_mutex_t	*mtx;
+
+	mtx = (pthread_mutex_t *)malloc(args[ARGS_PH_NUM]
+			* sizeof(pthread_mutex_t));
 	if (mtx == NULL)
 		return (1);
-	// Initialize mutexes
 	i = -1;
 	while (++i < args[ARGS_PH_NUM])
 		pthread_mutex_init(&mtx[i], NULL);
@@ -31,9 +30,11 @@ int	ph_mtxs_init(pthread_mutex_t **mtxs, int *args)
 
 int	ph_mtxs_destroy(pthread_mutex_t **mtxs, int *args)
 {
-	int	i;
-	pthread_mutex_t *mtx;
+	int				i;
+	pthread_mutex_t	*mtx;
 
+	if (mtxs == NULL || *mtxs == NULL || args == NULL)
+		return (0);
 	mtx = *mtxs;
 	i = -1;
 	while (++i < args[0])
