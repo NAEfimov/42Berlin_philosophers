@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 11:52:26 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/28 15:42:01 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 17:13:09 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ int	ph_action_eat(t_philo *ph)
 {
 	// Take left fork
 	pthread_mutex_lock(ph->frk_mtx[0]);
+	if (ph_check_die(ph))
+	{
+		pthread_mutex_unlock(ph->frk_mtx[0]);
+		return (1);
+	}
 	printf("%ld %d has taken a fork\n", ph_get_msec() - ph->t_start, ph->n);
 	// If only one philosopher - wait and die
 	if (ph->ph_num == 1)
@@ -70,7 +75,7 @@ int	ph_action_sleep(t_philo *ph)
 
 int	ph_action_wait(t_philo *ph, long time)
 {
-	if (ph->t_sleep <= ph->t_eat)
+	if (ph->t_eat >= ph->t_sleep)
 	{
 		usleep(MS_TO_MKS * (time));
 		if (ph_check_die(ph))
@@ -86,12 +91,6 @@ int	ph_action_wait_init(t_philo *ph)
 	usleep(MS_TO_MKS * (ph->t_eat));
 	if (ph_check_die(ph))
 		return (1);
-	// if (ph->status == ph->ph_num - 1)
-	// {
-	// 	usleep(MS_TO_MKS * (ph->t_eat));
-	// 	if (ph_check_die(ph))
-	// 		return (1);
-	// }
 	ph->status--;
 	return (0);
 }

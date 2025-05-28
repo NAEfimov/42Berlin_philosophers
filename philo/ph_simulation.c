@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:07:09 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/28 16:02:56 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 17:16:25 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@ void	ph_proc_status(t_philo *ph)
 		if (--ph->status < 0)
 			ph->status = ph->ph_num - 1;
 	}
-	else if (ph->status == ph->ph_num - 1)
+	else if (ph->status % 2 == 1)
+	{
+		if (ph_action_wait(ph, ph->t_eat - ph->t_sleep))
+			return ;
+	}
+	else
 	{
 		if (ph_action_wait(ph, ph->t_eat))
 			return ;
 	}
-	else
-		if (ph_action_wait(ph, ph->t_eat - ph->t_sleep))
-			return ;
 }
 
 void	ph_proc_status_init(t_philo *ph)
@@ -55,7 +57,6 @@ void	*ph_simulation(void *philo)
 	t_philo	*ph;
 
 	ph = (t_philo *)philo;
-	// ph_set_start_time(ph);
 	ph_proc_status_init(ph);
 	while (ph->n_eats != 0)
 	{
