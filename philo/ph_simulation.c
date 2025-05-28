@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:07:09 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/28 15:49:46 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 16:02:56 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	*ph_simulation(void *philo)
 	t_philo	*ph;
 
 	ph = (t_philo *)philo;
-	ph_set_start_time(ph);
+	// ph_set_start_time(ph);
 	ph_proc_status_init(ph);
 	while (ph->n_eats != 0)
 	{

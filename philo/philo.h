@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 20:00:30 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 16:04:42 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ph_philo_print_status(t_philo *philo);
 // ph_thread.c
 int		ph_threads_allocate(pthread_t **threads, int num);
 int		ph_threads_create(pthread_t *threads, t_philo *philo, int num);
+void	ph_set_philos_t_start(t_philo *ph);
 
 // ph_time.c
 long	ph_get_msec(void);

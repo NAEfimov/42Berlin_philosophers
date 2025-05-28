@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:21:08 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 19:55:56 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 16:03:41 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	ph_threads_create(pthread_t *threads, t_philo *philo, int num)
 {
 	int	i;
 
+	ph_set_philos_t_start(philo);
 	i = -1;
 	while (++i < num)
 		pthread_create(&threads[i], NULL, ph_simulation, (void *)&philo[i]);
@@ -45,4 +46,21 @@ int	ph_threads_create(pthread_t *threads, t_philo *philo, int num)
 	while (++i < num + 1)
 		pthread_join(threads[i], NULL);
 	return (0);
+}
+
+void	ph_set_philos_t_start(t_philo *ph)
+{
+	int		i;
+	long	time;
+
+	time = ph_get_msec();
+	i = -1;
+	while (++i < ph->ph_num)
+	{
+		// pthread_mutex_lock(ph->t_leat_mtx);
+		ph[i].t_start = time;
+		ph[i].t_leat = time;
+		// pthread_mutex_unlock(ph->t_leat_mtx);
+		// ph_set_start_time(&ph[i]);
+	}
 }

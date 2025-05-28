@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:28:45 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/28 15:40:30 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 16:21:24 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ph_philo_create(t_philo **philo, t_mtxs *mtxs, int *args)
 
 void	ph_philo_init(t_philo *philo, t_mtxs *mtxs, int *args, int i)
 {
-	philo->n = i;
+	philo->n = i + 1;
 	philo->status = i;
 	philo->ph_num = args[ARGS_PH_NUM];
 	philo->t_die = (long)(args[ARGS_T_DIE]);
