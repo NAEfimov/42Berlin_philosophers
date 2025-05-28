@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:28:45 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 18:39:31 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 15:40:30 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,13 @@ void	ph_philo_init(t_philo *philo, t_mtxs *mtxs, int *args, int i)
 	philo->is_die = 0;
 	philo->frk_mtx[0] = &mtxs->frk_mtx[philo->ph_num - 1
 		- ((philo->ph_num - i) % philo->ph_num)];
-	philo->frk_mtx[1] = &mtxs->frk_mtx[i];
+	if (&mtxs->frk_mtx[i] < philo->frk_mtx[0])
+	{
+		philo->frk_mtx[1] = philo->frk_mtx[0];
+		philo->frk_mtx[0] = &mtxs->frk_mtx[i];
+	}
+	else
+		philo->frk_mtx[1] = &mtxs->frk_mtx[i];
 	philo->is_die_mtx = &mtxs->is_die_mtx[i];
 	philo->t_leat_mtx = &mtxs->t_leat_mtx[i];
 }

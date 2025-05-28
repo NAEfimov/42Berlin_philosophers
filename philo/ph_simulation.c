@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:07:09 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 19:36:26 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 15:49:46 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	ph_proc_status_init(t_philo *ph)
 void	*ph_simulation(void *philo)
 {
 	t_philo	*ph;
-	// int		lcl_die;
 
 	ph = (t_philo *)philo;
 	ph_set_start_time(ph);

@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 11:52:26 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 20:16:56 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/05/28 15:42:01 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int	ph_action_eat(t_philo *ph)
 	}
 	pthread_mutex_lock(ph->t_leat_mtx);
 	ph->t_leat = ph_get_msec();
-	printf("%ld %d has taken a fork\n", ph->t_leat - ph->t_start, ph->n);
-	printf("%ld %d is eating\n", ph->t_leat - ph->t_start, ph->n);
 	pthread_mutex_unlock(ph->t_leat_mtx);
+	printf("%ld %d has taken a fork\n", ph_get_msec() - ph->t_start, ph->n);
+	printf("%ld %d is eating\n", ph_get_msec() - ph->t_start, ph->n);
 	// Sleep
 	usleep(MS_TO_MKS * ph->t_eat);
 	// Unlock forks after sleep
