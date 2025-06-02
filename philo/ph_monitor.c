@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:42:53 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 15:37:53 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 17:25:50 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	*ph_monitor(void *philo)
 	t_philo	*ph;
 	int		i;
 	int		die;
+	int		evb_eat;
 
 	die = 0;
 	ph = (t_philo *)philo;
@@ -38,6 +39,7 @@ void	*ph_monitor(void *philo)
 	{
 		usleep(MONITOR_SLEEP);
 		i = -1;
+		evb_eat = 0;
 		while (++i < ph->ph_num)
 		{
 			pthread_mutex_lock(ph[i].t_leat_mtx);
@@ -56,7 +58,16 @@ void	*ph_monitor(void *philo)
 			}
 			pthread_mutex_unlock(ph[i].is_die_mtx);			
 			pthread_mutex_unlock(ph[i].t_leat_mtx);
+			
+			pthread_mutex_lock(ph[i].n_eats_mtx);
+			evb_eat += ph[i].n_eats;
+			pthread_mutex_unlock(ph[i].n_eats_mtx);
 		}
+		if (evb_eat == 0)
+		{
+			ph_mon_set_all_die(ph);
+			die = 1;
+		}	
 	}
 	return (NULL);
 }

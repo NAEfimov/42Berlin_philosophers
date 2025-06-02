@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:07:09 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 15:26:07 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 17:22:29 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@ void	*ph_simulation(void *philo)
 
 	ph = (t_philo *)philo;
 	ph_proc_status_init(ph);
-	while (ph->n_eats != 0)
+	
+	pthread_mutex_lock(ph->is_die_mtx);
+	while (ph->is_die == 0)
 	{
-		pthread_mutex_lock(ph->is_die_mtx);
-		if (ph->is_die != 0)
-		{
-			pthread_mutex_unlock(ph->is_die_mtx);
-			break ;
-		}
 		pthread_mutex_unlock(ph->is_die_mtx);
 		ph_proc_status(ph);
+		pthread_mutex_lock(ph->is_die_mtx);
 	}
+	pthread_mutex_unlock(ph->is_die_mtx);
+
 	return (NULL);
 }
 
