@@ -6,64 +6,89 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:32:01 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 15:23:50 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 20:50:55 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-// Allocate memory for (ph_num + 1) mutexes and init them
-// First ph_num mutexes are forks. The last one is for ph.is_die
-int	ph_mtxs_init(t_mtxs *mtxs, int *args)
+// Initialise mtxs fields with NULL and 0
+static void	set_null_mtxs(t_mtxs **mtxs)
 {
-	int	i;
+	(*mtxs)->n = 0;
+	(*mtxs)->frks = NULL;
+	(*mtxs)->frk_mtx = NULL;
+	(*mtxs)->is_die_mtx = NULL;
+	(*mtxs)->t_leat_mtx = NULL;
+	(*mtxs)->n_eats_mtx = NULL;
+}
 
-	mtxs->n = args[ARGS_PH_NUM];
-	mtxs->frks = malloc((mtxs->n) * sizeof(int));
-	mtxs->frk_mtx = malloc((mtxs->n) * sizeof(pthread_mutex_t));
-	mtxs->is_die_mtx = malloc((mtxs->n) * sizeof(pthread_mutex_t));
-	mtxs->t_leat_mtx = malloc((mtxs->n) * sizeof(pthread_mutex_t));
-	mtxs->n_eats_mtx = malloc((mtxs->n) * sizeof(pthread_mutex_t));
-	if (!mtxs->frks || !mtxs->frk_mtx || !mtxs->is_die_mtx
-		|| !mtxs->t_leat_mtx || !mtxs->n_eats_mtx)
+// Allocate memory for forks and mutexes and init them
+int	ph_mtxs_init(t_mtxs **mtxs, int *args)
+{
+	int		i;
+
+	*mtxs = malloc(sizeof(t_mtxs));
+	if (*mtxs == NULL)
+		return (1);
+	set_null_mtxs(mtxs);
+	(*mtxs)->n = args[ARGS_PH_NUM];
+	(*mtxs)->frks = malloc(((*mtxs)->n) * sizeof(int));
+	(*mtxs)->frk_mtx = malloc(((*mtxs)->n) * sizeof(pthread_mutex_t));
+	(*mtxs)->is_die_mtx = malloc(((*mtxs)->n) * sizeof(pthread_mutex_t));
+	(*mtxs)->t_leat_mtx = malloc(((*mtxs)->n) * sizeof(pthread_mutex_t));
+	(*mtxs)->n_eats_mtx = malloc(((*mtxs)->n) * sizeof(pthread_mutex_t));
+	if (!(*mtxs)->frks || !(*mtxs)->frk_mtx || !(*mtxs)->is_die_mtx
+		|| !(*mtxs)->t_leat_mtx || !(*mtxs)->n_eats_mtx)
 		return (1);
 	i = -1;
-	while (++i < mtxs->n)
+	while (++i < (*mtxs)->n)
 	{
-		mtxs->frks[i] = 0;
-		pthread_mutex_init(&(mtxs->frk_mtx[i]), NULL);
-		pthread_mutex_init(&(mtxs->is_die_mtx[i]), NULL);
-		pthread_mutex_init(&(mtxs->t_leat_mtx[i]), NULL);
-		pthread_mutex_init(&(mtxs->n_eats_mtx[i]), NULL);
+		(*mtxs)->frks[i] = 0;
+		pthread_mutex_init(&((*mtxs)->frk_mtx[i]), NULL);
+		pthread_mutex_init(&((*mtxs)->is_die_mtx[i]), NULL);
+		pthread_mutex_init(&((*mtxs)->t_leat_mtx[i]), NULL);
+		pthread_mutex_init(&((*mtxs)->n_eats_mtx[i]), NULL);
 	}
 	return (0);
 }
 
-int	ph_mtxs_destroy(t_mtxs *mtxs, int *args)
+static int	destroy_mutexes(t_mtxs *mtx)
 {
 	int	i;
 
-	if (mtxs == NULL || args == NULL)
-		return (0);
 	i = -1;
-	while (++i < mtxs->n)
+	while (++i < mtx->n)
 	{
-		if (pthread_mutex_destroy(&(mtxs->frk_mtx[i]))
-			|| pthread_mutex_destroy(&(mtxs->is_die_mtx[i]))
-			|| pthread_mutex_destroy(&(mtxs->t_leat_mtx[i])))
+		if (pthread_mutex_destroy(&(mtx->frk_mtx[i]))
+			|| pthread_mutex_destroy(&(mtx->is_die_mtx[i]))
+			|| pthread_mutex_destroy(&(mtx->t_leat_mtx[i]))
+			|| pthread_mutex_destroy(&(mtx->n_eats_mtx[i])))
 			return (1);
 	}
-	if (mtxs->frks)
-		free(mtxs->frks);
-	if (mtxs->frk_mtx)
-		free(mtxs->frk_mtx);
-	if (mtxs->is_die_mtx)
-		free(mtxs->is_die_mtx);
-	if (mtxs->t_leat_mtx)
-		free(mtxs->t_leat_mtx);
-	if (mtxs->n_eats_mtx)
-		free(mtxs->n_eats_mtx);
-	mtxs->n = 0;
-	mtxs = NULL;
+	return (0);
+}
+
+// Destroy mutexes and free allocated memory for mtxs
+int	ph_mtxs_destroy(t_mtxs *mtx)
+{
+	if (mtx == NULL)
+		return (0);
+	if (destroy_mutexes(mtx))
+		return (1);
+	if (mtx->frks)
+		free(mtx->frks);
+	if (mtx->frk_mtx)
+		free(mtx->frk_mtx);
+	if (mtx->is_die_mtx)
+		free(mtx->is_die_mtx);
+	if (mtx->t_leat_mtx)
+		free(mtx->t_leat_mtx);
+	if (mtx->n_eats_mtx)
+		free(mtx->n_eats_mtx);
+	mtx->n = 0;
+	if (mtx)
+		free(mtx);
+	mtx = NULL;
 	return (0);
 }

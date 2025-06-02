@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:28:45 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 17:47:31 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 21:23:28 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #define GRAY_10 "\033[38;5;232m"
 #define RESET "\033[0m"
 
+// Allocate memory for array of t_philo and initialise it
+// Return 0 if OK or 1 if error
 int	ph_philo_create(t_philo **philo, t_mtxs *mtxs, int *args)
 {
 	int		i;
@@ -32,6 +34,7 @@ int	ph_philo_create(t_philo **philo, t_mtxs *mtxs, int *args)
 	return (0);
 }
 
+// Initialise a philo
 void	ph_philo_init(t_philo *philo, t_mtxs *mtxs, int *args, int i)
 {
 	philo->n = i + 1;
@@ -60,6 +63,7 @@ void	ph_philo_init(t_philo *philo, t_mtxs *mtxs, int *args, int i)
 	philo->n_eats_mtx = &mtxs->n_eats_mtx[i];
 }
 
+// Print main fields of philo
 void	ph_philo_print(t_philo *philo)
 {
 	printf(RED"\nphilo:\t%d\n"RESET, philo->n);
@@ -71,6 +75,7 @@ void	ph_philo_print(t_philo *philo)
 	printf("forks:\t\t%p | %p\n", philo->frk_mtx[0], philo->frk_mtx[1]);
 }
 
+// Print all fields of philo
 void	ph_philo_print_all(t_philo *philo)
 {
 	printf(RED"\nphilo:\t\t%d\n"RESET, philo->n);
@@ -86,6 +91,7 @@ void	ph_philo_print_all(t_philo *philo)
 	printf("forks:\t\t%p | %p\n", philo->frk_mtx[0], philo->frk_mtx[1]);
 }
 
+// Print fields of all philosophers
 void	ph_philo_print_status(t_philo *philo)
 {
 	int	i;

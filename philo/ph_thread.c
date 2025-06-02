@@ -6,12 +6,13 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:21:08 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 17:49:52 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 21:32:24 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// Allocate memory for all philo threads and monitor
 int	ph_threads_allocate(pthread_t **threads, int num)
 {
 	pthread_t	*thrd;
@@ -23,15 +24,8 @@ int	ph_threads_allocate(pthread_t **threads, int num)
 	return (0);
 }
 
-void	ph_threads_stop(t_philo *philo, int num)
-{
-	int	i;
-
-	i = -1;
-	while (++i < num)
-		philo[i].is_die = 1;
-}
-
+// Set t_start for all philosopher and create threads
+// Return 0 if OK and 1 if error
 int	ph_threads_create(pthread_t *threads, t_philo *philo, int num)
 {
 	int	i;
@@ -39,14 +33,22 @@ int	ph_threads_create(pthread_t *threads, t_philo *philo, int num)
 	ph_set_philos_t_start(philo);
 	i = -1;
 	while (++i < num)
-		pthread_create(&threads[i], NULL, ph_simulation, (void *)&philo[i]);
-	pthread_create(&threads[i], NULL, ph_monitor, (void *)philo);
+	{
+		if (pthread_create(&threads[i], NULL, ph_simulation, (void *)&philo[i]))
+			return (1);
+	}
+	if (pthread_create(&threads[i], NULL, ph_monitor, (void *)philo))
+		return (1);
 	i = -1;
 	while (++i < num + 1)
-		pthread_join(threads[i], NULL);
+	{
+		if (pthread_join(threads[i], NULL))
+			return (1);
+	}
 	return (0);
 }
 
+// Set t_start and t_leat for all philosophers
 void	ph_set_philos_t_start(t_philo *ph)
 {
 	int		i;

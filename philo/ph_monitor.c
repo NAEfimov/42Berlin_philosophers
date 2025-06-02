@@ -6,12 +6,14 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:42:53 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 18:24:18 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 21:18:08 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// Set is_die to 1 for all philosophers
+// Return 1
 int	ph_mon_set_all_die(t_philo	*ph)
 {
 	int	i;
@@ -26,6 +28,9 @@ int	ph_mon_set_all_die(t_philo	*ph)
 	return (1);
 }
 
+// Wait MONITOR_SLEEP microseconds and check if philosopher is die
+// or if all the philosophers finished eat.
+// Return 0 if no or 1 and set is_die = 1 for all the philosophers 
 int	ph_mon_check_die(t_philo *ph)
 {
 	int		i;
@@ -51,6 +56,7 @@ int	ph_mon_check_die(t_philo *ph)
 	return (0);
 }
 
+// Thread function for monitor
 void	*ph_monitor(void *philo)
 {
 	while (ph_mon_check_die((t_philo *)philo) == 0)
