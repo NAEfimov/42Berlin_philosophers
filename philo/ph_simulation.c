@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:07:09 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/28 17:16:25 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 14:46:43 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ph_proc_status(t_philo *ph)
 	}
 	else
 	{
-		if (ph_action_wait(ph, ph->t_eat))
+		if (ph_action_wait(ph, ph->t_eat / 2))
 			return ;
 	}
 }

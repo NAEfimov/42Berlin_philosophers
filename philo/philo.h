@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 12:42:55 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:01:01 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@
 # define MS_TO_MKS		1000
 # define S_TO_MKS		1000000
 
-# define MN_SLEEP		500
+# define MONITOR_SLEEP	500
+# define THINK_SLEEP	500
 
 typedef struct s_philo
 {
