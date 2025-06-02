@@ -28,7 +28,8 @@ SRCS		:=			\
 	ph_simulation.c		\
 	ph_sim_actions.c	\
 	ph_sim_checks.c		\
-	ph_monitor.c
+	ph_monitor.c		\
+	ph_monitor_utils.c
 
 BUILD_DIR	:= .build
 OBJS		:= $(SRCS:%.c=$(BUILD_DIR)/%.o)

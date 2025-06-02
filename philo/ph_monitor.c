@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:42:53 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 17:25:50 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 18:24:18 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,51 +23,37 @@ int	ph_mon_set_all_die(t_philo	*ph)
 		ph[i].is_die = 1;
 		pthread_mutex_unlock(ph[i].is_die_mtx);
 	}
-	return(0);
+	return (1);
+}
+
+int	ph_mon_check_die(t_philo *ph)
+{
+	int		i;
+	int		evb_eat;
+
+	usleep(MONITOR_SLEEP);
+	i = -1;
+	evb_eat = 0;
+	while (++i < ph->ph_num)
+	{
+		if (ph_mon_is_die(&ph[i])
+			|| ph_get_msec() - ph_mon_t_leat(&ph[i]) > ph[i].t_die)
+		{
+			if (ph_mon_n_eats(&ph[i]) != 0)
+				printf("%ld %d died\n", ph_get_msec()
+					- ph[i].t_start, ph[i].n);
+			return (ph_mon_set_all_die(ph));
+		}
+		evb_eat += ph_mon_n_eats(&ph[i]);
+	}
+	if (evb_eat == 0)
+		return (ph_mon_set_all_die(ph));
+	return (0);
 }
 
 void	*ph_monitor(void *philo)
 {
-	t_philo	*ph;
-	int		i;
-	int		die;
-	int		evb_eat;
-
-	die = 0;
-	ph = (t_philo *)philo;
-	while (die == 0)
-	{
-		usleep(MONITOR_SLEEP);
-		i = -1;
-		evb_eat = 0;
-		while (++i < ph->ph_num)
-		{
-			pthread_mutex_lock(ph[i].t_leat_mtx);
-			pthread_mutex_lock(ph[i].is_die_mtx);	
-			if (ph[i].is_die || ph_get_msec() - ph[i].t_leat > ph[i].t_die)
-			{
-				pthread_mutex_lock(ph[i].n_eats_mtx);
-				if (ph[i].n_eats != 0)
-					printf("%ld %d died\n", ph_get_msec() - ph[i].t_start, ph[i].n);
-				pthread_mutex_unlock(ph[i].n_eats_mtx);
-				pthread_mutex_unlock(ph[i].is_die_mtx);			
-				pthread_mutex_unlock(ph[i].t_leat_mtx);
-				ph_mon_set_all_die(ph);
-				die = 1;
-				break ;
-			}
-			pthread_mutex_unlock(ph[i].is_die_mtx);			
-			pthread_mutex_unlock(ph[i].t_leat_mtx);
-			
-			pthread_mutex_lock(ph[i].n_eats_mtx);
-			evb_eat += ph[i].n_eats;
-			pthread_mutex_unlock(ph[i].n_eats_mtx);
-		}
-		if (evb_eat == 0)
-		{
-			ph_mon_set_all_die(ph);
-			die = 1;
-		}	
-	}
+	while (ph_mon_check_die((t_philo *)philo) == 0)
+		;
 	return (NULL);
 }

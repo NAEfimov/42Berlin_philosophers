@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:28:45 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 15:30:29 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 17:47:31 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	ph_philo_create(t_philo **philo, t_mtxs *mtxs, int *args)
 	while (++i < args[ARGS_PH_NUM])
 		ph_philo_init(&ph[i], mtxs, args, i);
 	*philo = ph;
-
 	return (0);
 }
 

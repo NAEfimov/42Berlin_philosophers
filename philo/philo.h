@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 15:22:17 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 18:15:44 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define S_TO_MKS		1000000
 
 # define MONITOR_SLEEP	500
-# define THINK_SLEEP	500
+# define THINK_SLEEP	50
 
 typedef struct s_philo
 {
@@ -113,5 +113,10 @@ int		ph_check_wait_time(t_philo *ph, long time);
 // ph_monitor.c
 void	*ph_monitor(void *philo);
 int		ph_mon_set_all_die(t_philo	*ph);
+
+// ph_monitor_utils.c
+int		ph_mon_is_die(t_philo *ph);
+long	ph_mon_t_leat(t_philo *ph);
+int		ph_mon_n_eats(t_philo *ph);
 
 #endif

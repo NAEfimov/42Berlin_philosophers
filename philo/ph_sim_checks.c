@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 11:52:40 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 19:01:58 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 17:48:25 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	ph_set_start_time(t_philo *ph)
 	pthread_mutex_lock(ph->t_leat_mtx);
 	ph->t_leat = ph->t_start;
 	pthread_mutex_unlock(ph->t_leat_mtx);
-	// printf("%d set_start_time\n", ph->n);
 }
 
 int	ph_check_die(t_philo *ph)
