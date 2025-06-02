@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 19:42:53 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 13:10:42 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:37:53 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void	*ph_monitor(void *philo)
 			pthread_mutex_lock(ph[i].is_die_mtx);	
 			if (ph[i].is_die || ph_get_msec() - ph[i].t_leat > ph[i].t_die)
 			{
+				pthread_mutex_lock(ph[i].n_eats_mtx);
 				if (ph[i].n_eats != 0)
 					printf("%ld %d died\n", ph_get_msec() - ph[i].t_start, ph[i].n);
+				pthread_mutex_unlock(ph[i].n_eats_mtx);
 				pthread_mutex_unlock(ph[i].is_die_mtx);			
 				pthread_mutex_unlock(ph[i].t_leat_mtx);
 				ph_mon_set_all_die(ph);

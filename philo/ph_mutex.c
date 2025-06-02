@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 16:32:01 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 12:33:45 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:23:50 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ int	ph_mtxs_init(t_mtxs *mtxs, int *args)
 
 	mtxs->n = args[ARGS_PH_NUM];
 	mtxs->frks = malloc((mtxs->n) * sizeof(int));
-	mtxs->frk_mtx = (pthread_mutex_t *)malloc((mtxs->n)
-			* sizeof(pthread_mutex_t));
-	mtxs->is_die_mtx = (pthread_mutex_t *)malloc((mtxs->n)
-			* sizeof(pthread_mutex_t));
-	mtxs->t_leat_mtx = (pthread_mutex_t *)malloc((mtxs->n)
-			* sizeof(pthread_mutex_t));
-	if (!mtxs->frks || !mtxs->frk_mtx || !mtxs->is_die_mtx || !mtxs->t_leat_mtx)
+	mtxs->frk_mtx = malloc((mtxs->n) * sizeof(pthread_mutex_t));
+	mtxs->is_die_mtx = malloc((mtxs->n) * sizeof(pthread_mutex_t));
+	mtxs->t_leat_mtx = malloc((mtxs->n) * sizeof(pthread_mutex_t));
+	mtxs->n_eats_mtx = malloc((mtxs->n) * sizeof(pthread_mutex_t));
+	if (!mtxs->frks || !mtxs->frk_mtx || !mtxs->is_die_mtx
+		|| !mtxs->t_leat_mtx || !mtxs->n_eats_mtx)
 		return (1);
 	i = -1;
 	while (++i < mtxs->n)
@@ -35,6 +34,7 @@ int	ph_mtxs_init(t_mtxs *mtxs, int *args)
 		pthread_mutex_init(&(mtxs->frk_mtx[i]), NULL);
 		pthread_mutex_init(&(mtxs->is_die_mtx[i]), NULL);
 		pthread_mutex_init(&(mtxs->t_leat_mtx[i]), NULL);
+		pthread_mutex_init(&(mtxs->n_eats_mtx[i]), NULL);
 	}
 	return (0);
 }
@@ -61,6 +61,8 @@ int	ph_mtxs_destroy(t_mtxs *mtxs, int *args)
 		free(mtxs->is_die_mtx);
 	if (mtxs->t_leat_mtx)
 		free(mtxs->t_leat_mtx);
+	if (mtxs->n_eats_mtx)
+		free(mtxs->n_eats_mtx);
 	mtxs->n = 0;
 	mtxs = NULL;
 	return (0);

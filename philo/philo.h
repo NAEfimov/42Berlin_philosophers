@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 15:01:01 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:22:17 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_philo
 	pthread_mutex_t	*frk_mtx[2];
 	pthread_mutex_t	*is_die_mtx;
 	pthread_mutex_t	*t_leat_mtx;
+	pthread_mutex_t	*n_eats_mtx;
 }	t_philo;
 
 typedef struct s_mtxs
@@ -59,6 +60,7 @@ typedef struct s_mtxs
 	pthread_mutex_t	*frk_mtx;
 	pthread_mutex_t	*is_die_mtx;
 	pthread_mutex_t	*t_leat_mtx;
+	pthread_mutex_t	*n_eats_mtx;
 }	t_mtxs;
 
 // ph_arg_check.c

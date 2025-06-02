@@ -6,11 +6,31 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:07:09 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 14:46:43 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 15:26:07 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*ph_simulation(void *philo)
+{
+	t_philo	*ph;
+
+	ph = (t_philo *)philo;
+	ph_proc_status_init(ph);
+	while (ph->n_eats != 0)
+	{
+		pthread_mutex_lock(ph->is_die_mtx);
+		if (ph->is_die != 0)
+		{
+			pthread_mutex_unlock(ph->is_die_mtx);
+			break ;
+		}
+		pthread_mutex_unlock(ph->is_die_mtx);
+		ph_proc_status(ph);
+	}
+	return (NULL);
+}
 
 void	ph_proc_status(t_philo *ph)
 {
@@ -52,22 +72,3 @@ void	ph_proc_status_init(t_philo *ph)
 	}
 }
 
-void	*ph_simulation(void *philo)
-{
-	t_philo	*ph;
-
-	ph = (t_philo *)philo;
-	ph_proc_status_init(ph);
-	while (ph->n_eats != 0)
-	{
-		pthread_mutex_lock(ph->is_die_mtx);
-		if (ph->is_die != 0)
-		{
-			pthread_mutex_unlock(ph->is_die_mtx);
-			break ;
-		}
-		pthread_mutex_unlock(ph->is_die_mtx);
-		ph_proc_status(ph);
-	}
-	return (NULL);
-}
