@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/28 16:04:42 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:42:55 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_philo
 	long			t_start;
 	long			t_leat;
 	int				is_die;
+	int				*frks[2];
 	pthread_mutex_t	*frk_mtx[2];
 	pthread_mutex_t	*is_die_mtx;
 	pthread_mutex_t	*t_leat_mtx;
@@ -53,6 +54,7 @@ typedef struct s_philo
 typedef struct s_mtxs
 {
 	int				n;
+	int				*frks;
 	pthread_mutex_t	*frk_mtx;
 	pthread_mutex_t	*is_die_mtx;
 	pthread_mutex_t	*t_leat_mtx;

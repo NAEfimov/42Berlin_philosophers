@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 17:21:08 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/28 16:03:41 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:18:02 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,7 @@ void	ph_set_philos_t_start(t_philo *ph)
 	i = -1;
 	while (++i < ph->ph_num)
 	{
-		// pthread_mutex_lock(ph->t_leat_mtx);
 		ph[i].t_start = time;
 		ph[i].t_leat = time;
-		// pthread_mutex_unlock(ph->t_leat_mtx);
-		// ph_set_start_time(&ph[i]);
 	}
 }
