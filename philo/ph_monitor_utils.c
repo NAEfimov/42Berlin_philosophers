@@ -6,12 +6,13 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:06:11 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 18:23:58 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 20:59:35 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// Get ph->is_die value
 int	ph_mon_is_die(t_philo *ph)
 {
 	int	value;
@@ -22,6 +23,7 @@ int	ph_mon_is_die(t_philo *ph)
 	return (value);
 }
 
+// Get ph->t_leat value
 long	ph_mon_t_leat(t_philo *ph)
 {
 	long	value;
@@ -32,6 +34,7 @@ long	ph_mon_t_leat(t_philo *ph)
 	return (value);
 }
 
+// Get ph->n_eats value
 int	ph_mon_n_eats(t_philo *ph)
 {
 	int	value;

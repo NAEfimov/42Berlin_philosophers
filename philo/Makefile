@@ -28,6 +28,7 @@ SRCS		:=			\
 	ph_simulation.c		\
 	ph_sim_actions.c	\
 	ph_sim_checks.c		\
+	ph_sim_utils.c		\
 	ph_monitor.c		\
 	ph_monitor_utils.c
 

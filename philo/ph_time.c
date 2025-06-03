@@ -6,12 +6,13 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 21:07:33 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/23 12:16:47 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 21:33:43 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// Read time and return it in milliseconds
 long	ph_get_msec(void)
 {
 	struct timeval	tv;

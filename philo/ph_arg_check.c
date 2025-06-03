@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:38:39 by nefimov           #+#    #+#             */
-/*   Updated: 2025/05/21 20:22:37 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/02 20:58:10 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ph_args_check(int argc, char *argv[], int *args)
 	if (argc < 5 || argc > 6)
 		return (ph_arg_perrmsg("Wrong number of arguments!"));
 	if (ph_args_are_int(argc, argv, args))
-		return (ph_arg_perrmsg("One or more arguments is not positive int!"));
+		return (ph_arg_perrmsg("One or more arguments are not positive int!"));
 	return (0);
 }
 
@@ -52,6 +52,10 @@ int	ph_args_are_int(int argc, char *argv[], int *args)
 	while (++i < argc)
 	{
 		str = argv[i];
+		while (*str == ' ')
+			str++;
+		if (*str == '+')
+			str++;
 		while (*str)
 		{
 			if (*str < '0' || *str > '9')
@@ -59,7 +63,7 @@ int	ph_args_are_int(int argc, char *argv[], int *args)
 			str++;
 		}
 		args[i - 1] = ph_simple_itoa(argv[i]);
-		if (args[i - 1] == -1)
+		if (args[i - 1] == -1 || args[0] == 0)
 			return (1);
 		if (argc == 5)
 			args[4] = -1;
@@ -77,4 +81,27 @@ void	ph_args_print(int *args)
 	while (++i < ARGS_COUNT)
 		printf("%d ", args[i]);
 	printf("\n\n");
+}
+
+// Convert string to integer. Check for INT_MAX and wrong simbols
+// Return integer number or -1 if error 
+int	ph_simple_itoa(char *str)
+{
+	long	num;
+
+	num = 0;
+	while (*str == ' ')
+		str++;
+	if (*str == '+')
+		str++;
+	while (*str)
+	{
+		if (num > INT_MAX / 10)
+			return (-1);
+		num = num * 10 + (*str - '0');
+		str++;
+	}
+	if (num > INT_MAX)
+		return (-1);
+	return ((int)num);
 }

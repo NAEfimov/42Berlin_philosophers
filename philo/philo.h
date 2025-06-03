@@ -6,7 +6,7 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:32:36 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 18:15:44 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/03 19:15:37 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 # define MONITOR_SLEEP	500
 # define THINK_SLEEP	50
+
+# define STR_MAXLEN		50
 
 typedef struct s_philo
 {
@@ -61,6 +63,7 @@ typedef struct s_mtxs
 	pthread_mutex_t	*is_die_mtx;
 	pthread_mutex_t	*t_leat_mtx;
 	pthread_mutex_t	*n_eats_mtx;
+	pthread_mutex_t	print_mtx;
 }	t_mtxs;
 
 // ph_arg_check.c
@@ -68,14 +71,15 @@ int		ph_args_check(int argc, char *argv[], int *args);
 int		ph_args_are_int(int argc, char *argv[], int *args);
 int		ph_arg_perrmsg(char *errmsg);
 void	ph_args_print(int *args);
+int		ph_simple_itoa(char *str);
 
 // ph_utils.c
-int		ph_simple_itoa(char *str);
 void	ph_free(pthread_t *threads, t_philo *philo);
+int		ph_printf(t_philo *ph, char *msg);
 
 // ph_mutex.c
-int		ph_mtxs_init(t_mtxs *mtxs, int *args);
-int		ph_mtxs_destroy(t_mtxs *mtxs, int *args);
+int		ph_mtxs_init(t_mtxs **mtxs, int *args);
+int		ph_mtxs_destroy(t_mtxs **mtxs);
 
 // ph_philosopher.c
 int		ph_philo_create(t_philo **philo, t_mtxs *mtxs, int *args);
@@ -105,10 +109,7 @@ int		ph_action_wait(t_philo *ph, long time);
 int		ph_action_wait_init(t_philo *ph);
 
 // ph_sim_checks.c
-void	ph_set_start_time(t_philo *ph);
 int		ph_check_die(t_philo *ph);
-int		ph_check_t_sleep(t_philo *ph);
-int		ph_check_wait_time(t_philo *ph, long time);
 
 // ph_monitor.c
 void	*ph_monitor(void *philo);
@@ -118,5 +119,12 @@ int		ph_mon_set_all_die(t_philo	*ph);
 int		ph_mon_is_die(t_philo *ph);
 long	ph_mon_t_leat(t_philo *ph);
 int		ph_mon_n_eats(t_philo *ph);
+
+// ph_sim_utils.c
+void	ph_sim_set_frks(t_philo *ph, int value);
+int		ph_sim_wait_frks(t_philo *ph);
+int		ph_sim_eating(t_philo *ph);
+void	ph_sim_decrease_n_eats(t_philo *ph);
+int		ph_sim_only_one_ph(t_philo *ph);
 
 #endif

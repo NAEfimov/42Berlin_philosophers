@@ -6,36 +6,35 @@
 /*   By: nefimov <nefimov@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 09:07:09 by nefimov           #+#    #+#             */
-/*   Updated: 2025/06/02 17:49:32 by nefimov          ###   ########.fr       */
+/*   Updated: 2025/06/03 18:53:27 by nefimov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+// Thread function for philosophers
 void	*ph_simulation(void *philo)
 {
 	t_philo	*ph;
 
 	ph = (t_philo *)philo;
 	ph_proc_status_init(ph);
-	pthread_mutex_lock(ph->is_die_mtx);
-	while (ph->is_die == 0)
-	{
-		pthread_mutex_unlock(ph->is_die_mtx);
+	while (ph_mon_is_die(ph) == 0)
 		ph_proc_status(ph);
-		pthread_mutex_lock(ph->is_die_mtx);
-	}
-	pthread_mutex_unlock(ph->is_die_mtx);
 	return (NULL);
 }
 
+// Process curent status of philosophers
+// If status is even - eat, sleep and change status
+// If status is odd - wait and change status
+// If status is equal to ph_num - 1 - extra sleep
 void	ph_proc_status(t_philo *ph)
 {
 	if (ph->status % 2 == 0 && ph->status != ph->ph_num - 1)
 	{
 		if (ph_check_die(ph) || ph_action_eat(ph) || ph_action_sleep(ph))
 			return ;
-		printf("%ld %d is thinking\n", ph_get_msec() - ph->t_start, ph->n);
+		ph_printf(ph, "is thinking\n");
 		if (--ph->status < 0)
 			ph->status = ph->ph_num - 1;
 	}
@@ -51,6 +50,7 @@ void	ph_proc_status(t_philo *ph)
 	}
 }
 
+// Initial process for philosophers
 void	ph_proc_status_init(t_philo *ph)
 {
 	if ((ph->status % 2 == 0 && ph->status != ph->ph_num - 1)
@@ -58,7 +58,7 @@ void	ph_proc_status_init(t_philo *ph)
 	{
 		if (ph_action_eat(ph) || ph_action_sleep(ph))
 			return ;
-		printf("%ld %d is thinking\n", ph_get_msec() - ph->t_start, ph->n);
+		ph_printf(ph, "is thinking\n");
 		if (--ph->status < 0)
 			ph->status = ph->ph_num - 1;
 	}
